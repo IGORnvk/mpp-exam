@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/static/normalize.css">
+    <link rel="stylesheet" href="/static/style.css">
+    <title>{{.Name}} Character Sheet</title>
+</head>
+<body>
+<form class="charsheet">
+    <header>
+        <section class="charname">
+            <label for="charname">Character Name</label><input name="charname" value="{{.Name}}" />
+        </section>
+        <section class="misc">
+            <ul>
+                <li>
+                    <label for="classlevel">Class & Level</label><input name="classlevel" value="{{.Class}} {{.Level}}" />
+                </li>
+                <li>
+                    <label for="background">Background</label><input name="background" value="{{.Background}}" />
+                </li>
+                <li>
+                    <label for="playername">Player Name</label><input name="playername" placeholder="Player McPlayerface">
+                </li>
+                <li>
+                    <label for="race">Race</label><input name="race" value="{{.Race}}" />
+                </li>
+                <li>
+                    <label for="alignment">Alignment</label><input name="alignment" placeholder="Lawful Good" />
+                </li>
+                <li>
+                    <label for="experiencepoints">Experience Points</label><input name="experiencepoints" placeholder="3240" />
+                </li>
+            </ul>
+        </section>
+    </header>
+    <main>
+        <section>
+            <section class="attributes">
+                <div class="scores">
+                    <ul>
+                        <li>
+                            <div class="score">
+                                <label for="Strengthscore">Strength</label><input name="Strengthscore" value="{{.AbilityScores.STR.Score}}" class="stat"/>
+                            </div>
+                            <div class="modifier">
+                                <input name="Strengthmod" value="{{printf "%+d" .AbilityScores.STR.Modifier}}" class="statmod"/>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="score">
+                                <label for="Dexterityscore">Dexterity</label><input name="Dexterityscore" value="{{.AbilityScores.DEX.Score}}" class="stat"/>
+                            </div>
+                            <div class="modifier">
+                                <input name="Dexteritymod" value="{{printf "%+d" .AbilityScores.DEX.Modifier}}" class=statmod/>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="score">
+                                <label for="Constitutionscore">Constitution</label><input name="Constitutionscore" value="{{.AbilityScores.CON.Score}}" class="stat"/>
+                            </div>
+                            <div class="modifier">
+                                <input name="Constitutionmod" value="{{printf "%+d" .AbilityScores.CON.Modifier}}" class="statmod"/>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="score">
+                                <label for="Wisdomscore">Wisdom</label><input name="Wisdomscore" value="{{.AbilityScores.WIS.Score}}" class="stat"/>
+                            </div>
+                            <div class="modifier">
+                                <input name="Wisdommod" value="{{printf "%+d" .AbilityScores.WIS.Modifier}}" />
+                            </div>
+                        </li>
+                        <li>
+                            <div class="score">
+                                <label for="Intelligencescore">Intelligence</label><input name="Intelligencescore" value="{{.AbilityScores.INT.Score}}" class="stat"/>
+                            </div>
+                            <div class="modifier">
+                                <input name="Intelligencemod" value="{{printf "%+d" .AbilityScores.INT.Modifier}}" class="statmod"/>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="score">
+                                <label for="Charismascore">Charisma</label><input name="Charismascore" value="{{.AbilityScores.CHA.Score}}" class="stat"/>
+                            </div>
+                            <div class="modifier">
+                                <input name="Charismamod" value="{{printf "%+d" .AbilityScores.CHA.Modifier}}" class="statmod"/>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <div class="attr-applications">
+                    <div class="inspiration box">
+                        <div class="label-container">
+                            <label for="inspiration">Inspiration</label>
+                        </div>
+                        <input name="inspiration" type="checkbox" />
+                    </div>
+                    <div class="proficiencybonus box">
+                        <div class="label-container">
+                            <label for="proficiencybonus">Proficiency Bonus</label>
+                        </div>
+                        <input name="proficiencybonus" value="{{printf "%+d" .ProficiencyBonus}}" />
+                    </div>
+
+                    <div class="saves list-section box">
+                        <ul>
+                            <li>
+                                <label for="Strength-save">Strength</label><input name="Strength-save" value="{{printf "%+d" .AbilityScores.STR.Modifier}}" type="text" /><input name="Strength-save-prof" type="checkbox" />
+                            </li>
+                            <li>
+                                <label for="Dexterity-save">Dexterity</label><input name="Dexterity-save" value="{{printf "%+d" .AbilityScores.DEX.Modifier}}" type="text" /><input name="Dexterity-save-prof" type="checkbox" />
+                            </li>
+                            <li>
+                                <label for="Constitution-save">Constitution</label><input name="Constitution-save" value="{{printf "%+d" .AbilityScores.CON.Modifier}}" type="text" /><input name="Constitution-save-prof" type="checkbox" />
+                            </li>
+                            <li>
+                                <label for="Wisdom-save">Wisdom</label><input name="Wisdom-save" value="{{printf "%+d" .AbilityScores.WIS.Modifier}}" type="text" /><input name="Wisdom-save-prof" type="checkbox" />
+                            </li>
+                            <li>
+                                <label for="Intelligence-save">Intelligence</label><input name="Intelligence-save" value="{{printf "%+d" .AbilityScores.INT.Modifier}}" type="text" /><input name="Intelligence-save-prof" type="checkbox" />
+                            </li>
+                            <li>
+                                <label for="Charisma-save">Charisma</label><input name="Charisma-save" value="{{printf "%+d" .AbilityScores.CHA.Modifier}}" type="text" /><input name="Charisma-save-prof" type="checkbox" />
+                            </li>
+                        </ul>
+                        <div class="label">
+                            Saving Throws
+                        </div>
+                    </div>
+
+                    <div class="skills list-section box">
+                        <ul>
+                            <li>
+                                <label for="Acrobatics">Acrobatics <span class="skill">(Dex)</span></label><input name="Acrobatics" value="{{.GetSkillModifier "Acrobatics"}}" type="text" /><input name="Acrobatics-prof" type="checkbox" {{if index .SkillProficiencies "Acrobatics"}}checked{{end}} />
+                            </li>
+                            <li>
+                                <label for="Animal Handling">Animal Handling <span class="skill">(Wis)</span></label><input name="Animal Handling" value="{{.GetSkillModifier "Animal Handling"}}" type="text" /><input name="Animal Handling-prof" type="checkbox" {{if index .SkillProficiencies "Animal Handling"}}checked{{end}} />
+                            </li>
+                            <li>
+                                <label for="Arcana">Arcana <span class="skill">(Int)</span></label><input name="Arcana" value="{{.GetSkillModifier "Arcana"}}" type="text" /><input name="Arcana-prof" type="checkbox" {{if index .SkillProficiencies "Arcana"}}checked{{end}} />
+                            </li>
+                            <li>
+                                <label for="Athletics">Athletics <span class="skill">(Str)</span></label><input name="Athletics" value="{{.GetSkillModifier "Athletics"}}" type="text" /><input name="Athletics-prof" type="checkbox" {{if index .SkillProficiencies "Athletics"}}checked{{end}} />
+                            </li>
+                            <li>
+                                <label for="Deception">Deception <span class="skill">(Cha)</span></label><input name="Deception" value="{{.GetSkillModifier "Deception"}}" type="text" /><input name="Deception-prof" type="checkbox" {{if index .SkillProficiencies "Deception"}}checked{{end}} />
+                            </li>
+                            <li>
+                                <label for="History">History <span class="skill">(Int)</span></label><input name="History" value="{{.GetSkillModifier "History"}}" type="text" /><input name="History-prof" type="checkbox" {{if index .SkillProficiencies "History"}}checked{{end}} />
+                            </li>
+                            <li>
+                                <label for="Insight">Insight <span class="skill">(Wis)</span></label><input name="Insight" value="{{.GetSkillModifier "Insight"}}" type="text" /><input name="Insight-prof" type="checkbox" {{if index .SkillProficiencies "Insight"}}checked{{end}} />
+                            </li>
+                            <li>
+                                <label for="Intimidation">Intimidation <span class="skill">(Cha)</span></label><input name="Intimidation" value="{{.GetSkillModifier "Intimidation"}}" type="text" /><input name="Intimidation-prof" type="checkbox" {{if index .SkillProficiencies "Intimidation"}}checked{{end}} />
+                            </li>
+                            <li>
+                                <label for="Investigation">Investigation <span class="skill">(Int)</span></label><input name="Investigation" value="{{.GetSkillModifier "Investigation"}}" type="text" /><input name="Investigation-prof" type="checkbox" {{if index .SkillProficiencies "Investigation"}}checked{{end}} />
+                            </li>
+                            <li>
+                                <label for="Medicine">Medicine <span class="skill">(Wis)</span></label><input name="Medicine" value="{{.GetSkillModifier "Medicine"}}" type="text" /><input name="Medicine-prof" type="checkbox" {{if index .SkillProficiencies "Medicine"}}checked{{end}} />
+                            </li>
+                            <li>
+                                <label for="Nature">Nature <span class="skill">(Int)</span></label><input name="Nature" value="{{.GetSkillModifier "Nature"}}" type="text" /><input name="Nature-prof" type="checkbox" {{if index .SkillProficiencies "Nature"}}checked{{end}} />
+                            </li>
+                            <li>
+                                <label for="Perception">Perception <span class="skill">(Wis)</span></label><input name="Perception" value="{{.GetSkillModifier "Perception"}}" type="text" /><input name="Perception-prof" type="checkbox" {{if index .SkillProficiencies "Perception"}}checked{{end}} />
+                            </li>
+                            <li>
+                                <label for="Performance">Performance <span class="skill">(Cha)</span></label><input name="Performance" value="{{.GetSkillModifier "Performance"}}" type="text" /><input name="Performance-prof" type="checkbox" {{if index .SkillProficiencies "Performance"}}checked{{end}} />
+                            </li>
+                            <li>
+                                <label for="Persuasion">Persuasion <span class="skill">(Cha)</span></label><input name="Persuasion" value="{{.GetSkillModifier "Persuasion"}}" type="text" /><input name="Persuasion-prof" type="checkbox" {{if index .SkillProficiencies "Persuasion"}}checked{{end}} />
+                            </li>
+                            <li>
+                                <label for="Religion">Religion <span class="skill">(Int)</span></label><input name="Religion" value="{{.GetSkillModifier "Religion"}}" type="text" /><input name="Religion-prof" type="checkbox" {{if index .SkillProficiencies "Religion"}}checked{{end}} />
+                            </li>
+                            <li>
+                                <label for="Sleight of Hand">Sleight of Hand <span class="skill">(Dex)</span></label><input name="Sleight of Hand" value="{{.GetSkillModifier "Sleight of Hand"}}" type="text" /><input name="Sleight of Hand-prof" type="checkbox" {{if index .SkillProficiencies "Sleight of Hand"}}checked{{end}} />
+                            </li>
+                            <li>
+                                <label for="Stealth">Stealth <span class="skill">(Dex)</span></label><input name="Stealth" value="{{.GetSkillModifier "Stealth"}}" type="text" /><input name="Stealth-prof" type="checkbox" {{if index .SkillProficiencies "Stealth"}}checked{{end}} />
+                            </li>
+                            <li>
+                                <label for="Survival">Survival <span class="skill">(Wis)</span></label><input name="Survival" value="{{.GetSkillModifier "Survival"}}" type="text" /><input name="Survival-prof" type="checkbox" {{if index .SkillProficiencies "Survival"}}checked{{end}} />
+                            </li>
+                        </ul>
+                        <div class="label">
+                            Skills
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <div class="passive-perception box">
+                <div class="label-container">
+                    <label for="passiveperception">Passive Wisdom (Perception)</label>
+                </div>
+                <input name="passiveperception" value="{{.PassivePerception}}" />
+            </div>
+            <div class="otherprofs box textblock">
+                <label for="otherprofs">Other Proficiencies and Languages</label><textarea name="otherprofs"></textarea>
+            </div>
+        </section>
+        <section>
+            <section class="combat">
+                <div class="armorclass">
+                    <div>
+                        <label for="ac">Armor Class</label><input name="ac" value="{{.ArmorClass}}" type="text" />
+                    </div>
+                </div>
+                <div class="initiative">
+                    <div>
+                        <label for="initiative">Initiative</label><input name="initiative" value="{{printf "%+d" .Initiative}}" type="text" />
+                    </div>
+                </div>
+                <div class="speed">
+                    <div>
+                        <label for="speed">Speed</label><input name="speed" placeholder="30" type="text" />
+                    </div>
+                </div>
+                <div class="hp">
+                    <div class="regular">
+                        <div class="max">
+                            <label for="maxhp">Hit Point Maximum</label><input name="maxhp" value="{{.MaxHitPoints}}" type="text" />
+                        </div>
+                        <div class="current">
+                            <label for="currenthp">Current Hit Points</label><input name="currenthp" value="{{.CurrentHitPoints}}" type="text" />
+                        </div>
+                    </div>
+                    <div class="temporary">
+                        <label for="temphp">Temporary Hit Points</label><input name="temphp" type="text" />
+                    </div>
+                </div>
+                <div class="hitdice">
+                    <div>
+                        <div class="total">
+                            <label onclick="totalhd_clicked()" for="totalhd">Total</label><input name="totalhd" placeholder="2d10" type="text" />
+                        </div>
+                        <div class="remaining">
+                            <label for="remaininghd">Hit Dice</label><input name="remaininghd" type="text" />
+                        </div>
+                    </div>
+                </div>
+                <div class="deathsaves">
+                    <div>
+                        <div class="label">
+                            <label>Death Saves</label>
+                        </div>
+                        <div class="marks">
+                            <div class="deathsuccesses">
+                                <label>Successes</label>
+                                <div class="bubbles">
+                                    <input name="deathsuccess1" type="checkbox" />
+                                    <input name="deathsuccess2" type="checkbox" />
+                                    <input name="deathsuccess3" type="checkbox" />
+                                </div>
+                            </div>
+                            <div class="deathfails">
+                                <label>Failures</label>
+                                <div class="bubbles">
+                                    <input name="deathfail1" type="checkbox" />
+                                    <input name="deathfail2" type="checkbox" />
+                                    <input name="deathfail3" type="checkbox" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section class="attacksandspellcasting">
+                <div>
+                    <label>Attacks & Spellcasting</label>
+                    <table>
+                        <thead>
+                        <tr>
+                            <th>
+                                Name
+                            </th>
+                            <th>
+                                Atk Bonus
+                            </th>
+                            <th>
+                                Damage/Type
+                            </th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {{if .EquippedWeaponMainHand.Name}}
+                        <tr>
+                            <td>
+                                <input name="atkname1" value="{{.EquippedWeaponMainHand.Name}}" type="text" />
+                            </td>
+                            <td>
+                                <input name="atkbonus1" type="text" />
+                            </td>
+                            <td>
+                                <input name="atkdamage1" value="{{.EquippedWeaponMainHand.Damage}}" type="text" />
+                            </td>
+                        </tr>
+                        {{else}}
+                        <tr>
+                            <td>
+                                <input name="atkname1" type="text" />
+                            </td>
+                            <td>
+                                <input name="atkbonus1" type="text" />
+                            </td>
+                            <td>
+                                <input name="atkdamage1" type="text" />
+                            </td>
+                        </tr>
+                        {{end}}
+                        {{if .EquippedWeaponOffHand.Name}}
+                        <tr>
+                            <td>
+                                <input name="atkname2" value="{{.EquippedWeaponOffHand.Name}}" type="text" />
+                            </td>
+                            <td>
+                                <input name="atkbonus2" type="text" />
+                            </td>
+                            <td>
+                                <input name="atkdamage2" value="{{.EquippedWeaponOffHand.Damage}}" type="text" />
+                            </td>
+                        </tr>
+                        {{else}}
+                        <tr>
+                            <td>
+                                <input name="atkname2" type="text" />
+                            </td>
+                            <td>
+                                <input name="atkbonus2" type="text" />
+                            </td>
+                            <td>
+                                <input name="atkdamage2" type="text" />
+                            </td>
+                        </tr>
+                        {{end}}
+                        <tr>
+                            <td>
+                                <input name="atkname3" type="text" />
+                            </td>
+                            <td>
+                                <input name="atkbonus3" type="text" />
+                            </td>
+                            <td>
+                                <input name="atkdamage3" type="text" />
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <textarea placeholder="Spell List">
+Spellcasting Stats ({{if .SpellCastingAbility}}{{.SpellCastingAbility}} DC: {{.SpellSaveDC}} / Atk: {{printf "%+d" .SpellAttackBonus}}{{else}}N/A{{end}})
+
+---
+Prepared Spells:
+{{range $name, $spell := $.PreparedSpells}}{{if gt $spell.Level 0}}- {{$spell.Name}} (Lvl {{$spell.Level}}){{end}}{{end}}
+
+---
+Other Known Spells:
+{{range $name, $spell := .KnownSpells}}{{if not (index $.PreparedSpells $name)}}- {{$name}} (Lvl {{$spell.Level}}){{end}}{{end}}
+                    </textarea>
+                </div>
+            </section>
+            <section class="equipment">
+                <div>
+                    <label>Equipment</label>
+                    <div class="money">
+                        <ul>
+                            <li>
+                                <label for="cp">cp</label><input name="cp" />
+                            </li>
+                            <li>
+                                <label for="sp">sp</label><input name="sp" />
+                            </li>
+                            <li>
+                                <label for="ep">ep</label><input name="ep" />
+                            </li>
+                            <li>
+                                <label for="gp">gp</label><input name="gp" />
+                            </li>
+                            <li>
+                                <label for="pp">pp</label><input name="pp" />
+                            </li>
+                        </ul>
+                    </div>
+                    <textarea placeholder="Equipment list here">
+{{if .EquippedArmor.Name}}Armor: {{.EquippedArmor.Name}} (AC {{.EquippedArmor.AC}})
+{{end}}{{if .EquippedShield.Name}}Shield: {{.EquippedShield.Name}} (+2 AC)
+{{end}}{{if .EquippedWeaponMainHand.Name}}Main Hand: {{.EquippedWeaponMainHand.Name}} ({{.EquippedWeaponMainHand.Damage}})
+{{end}}{{if .EquippedWeaponOffHand.Name}}Off Hand: {{.EquippedWeaponOffHand.Name}} ({{.EquippedWeaponOffHand.Damage}})
+{{end}}
+</textarea>
+                </div>
+            </section>
+        </section>
+        <section>
+            <section class="flavor">
+                <div class="personality">
+                    <label for="personality">Personality</label><textarea name="personality"></textarea>
+                </div>
+                <div class="ideals">
+                    <label for="ideals">Ideals</label><textarea name="ideals"></textarea>
+                </div>
+                <div class="bonds">
+                    <label for="bonds">Bonds</label><textarea name="bonds"></textarea>
+                </div>
+                <div class="flaws">
+                    <label for="flaws">Flaws</label><textarea name="flaws"></textarea>
+                </div>
+            </section>
+            <section class="features">
+                <div>
+                    <label for="features">Features & Traits</label><textarea name="features"></textarea>
+                </div>
+            </section>
+        </section>
+    </main>
+</form>
+</body>
+</html>

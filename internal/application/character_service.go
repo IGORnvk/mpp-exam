@@ -74,29 +74,29 @@ func (s *CharacterService) CreateCharacter(ctx context.Context, req CreateCharac
 
 	newChar.Level = req.Level
 
-	if len(req.InitialSkills) == 0 {
-		bgName := strings.ToLower(req.Background)
-		className := strings.ToLower(req.Class)
+	bgName := strings.ToLower(req.Background)
+	className := strings.ToLower(req.Class)
+	raceName := strings.ToLower(req.Race)
 
-		bgSkills := BackgroundSkills[bgName]
-		classSkills := DefaultClassSkills[className]
+	var allSkillsToGain []string
 
-		bgSkillMap := make(map[string]bool)
-		for _, skill := range bgSkills {
-			bgSkillMap[skill] = true
-			req.InitialSkills = append(req.InitialSkills, skill)
-		}
+	if bgSkills, ok := BackgroundSkills[bgName]; ok {
+		allSkillsToGain = append(allSkillsToGain, bgSkills...)
+	}
 
-		for _, skill := range classSkills {
-			req.InitialSkills = append(req.InitialSkills, skill)
+	if len(req.InitialSkills) > 0 {
+		allSkillsToGain = append(allSkillsToGain, req.InitialSkills...)
+	} else if classSkills, ok := DefaultClassSkills[className]; ok {
+		allSkillsToGain = append(allSkillsToGain, classSkills...)
+	}
 
-			if bgSkillMap[skill] {
-				newChar.SkillExpertise[skill] = true
-			}
+	if raceData, ok := domain.AllRaces[raceName]; ok {
+		if racialProf := raceData.SkillProficiency; racialProf != "" {
+			allSkillsToGain = append(allSkillsToGain, racialProf)
 		}
 	}
 
-	newChar.SetSkillProficiencies(req.InitialSkills)
+	newChar.SetSkillProficiencies(allSkillsToGain)
 
 	newChar.UpdateProficiencyBonus(newChar.Level)
 	newChar.CalculateMaxHitPoints()

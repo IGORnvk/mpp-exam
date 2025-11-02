@@ -120,6 +120,10 @@ func NewCharacter(name, race, class, background string, scoreAssignments map[str
 func (c *Character) SetSkillProficiencies(skills []string) {
 	for _, skill := range skills {
 		if _, exists := AllSkills[skill]; exists {
+			if c.SkillProficiencies[skill] {
+				c.SkillExpertise[skill] = true
+			}
+
 			c.SkillProficiencies[skill] = true
 		}
 	}

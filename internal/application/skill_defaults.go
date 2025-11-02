@@ -1,7 +1,10 @@
 package application
 
 var BackgroundSkills = map[string][]string{
-	"acolyte": {"Insight", "Religion"},
+	"acolyte":   {"Insight", "Religion"},
+	"sage":      {"Arcana", "History"},
+	"soldier":   {"Athletics", "Intimidation"},
+	"outlander": {"Athletics", "Survival"},
 }
 
 var DefaultClassSkills = map[string][]string{
